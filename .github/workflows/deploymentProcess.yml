@@ -1,0 +1,20 @@
+name: Deployment process
+on: push
+jobs:
+    setup:
+        runs-on: ubuntu-latest
+        steps:
+           - name: Checkout code
+             uses: actions/checkout@v4
+           - name: Install dependencies
+             run: npm ci
+           - name: Run lint
+             run: npm run lint
+           - name: Run tests
+             run: npm test
+    deploy:
+        needs: setup
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy
+              run: echo "Deploying project..."
